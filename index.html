@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Ejecución - Plan Rápido</title>
+    <style>
+        /* Estilos Generales */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-blue: #3498db;
+            --accent-green: #27ae60;
+            --accent-orange: #f39c12;
+            --accent-grey: #95a5a6;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+            background-color: #fff;
+            color: var(--text-dark);
+        }
+
+        /* Contenedor Principal del Gantt */
+        .gantt-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .gantt-header-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Estructura de Grid para el Gráfico */
+        .gantt-chart {
+            display: grid;
+            /* CAMBIO: Eliminada la columna extra de 80px. Ahora son solo 4 semanas */
+            grid-template-columns: 250px repeat(4, 1fr);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        /* Cabeceras de la Tabla */
+        .gantt-head {
+            background-color: var(--bg-light);
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 10px 5px;
+            text-align: center;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 2px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            line-height: 1.3;
+        }
+
+        .gantt-head span {
+            display: block;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .gantt-head small {
+            display: block;
+            font-weight: normal;
+            color: #7f8c8d;
+            font-size: 0.75rem;
+        }
+
+        .gantt-head:first-child {
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            padding-left: 15px;
+            position: sticky;
+            left: 0;
+            background-color: var(--bg-light);
+            z-index: 10;
+        }
+
+        /* Filas de Tareas */
+        .gantt-row-label {
+            padding: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background-color: white;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+        }
+
+        .gantt-row-cell {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            background-color: white;
+        }
+
+        /* Las Barras del Gantt */
+        .gantt-bar {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 24px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: white;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: transform 0.2s;
+            cursor: pointer;
+            width: calc(100% - 10px);
+            left: 5px;
+        }
+
+        .gantt-bar:hover {
+            transform: translateY(-50%) scale(1.02);
+            opacity: 1;
+        }
+
+        .bar-blue { background-color: var(--accent-blue); }
+        .bar-orange { background-color: var(--accent-orange); }
+        .bar-green { background-color: var(--accent-green); }
+        .bar-grey { background-color: var(--accent-grey); color: #fff; font-weight: bold; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gantt-chart {
+                /* Ajuste responsive para 4 columnas de tiempo */
+                grid-template-columns: 150px repeat(4, 100px);
+            }
+            .gantt-head:first-child, .gantt-row-label {
+                box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gantt-wrapper">
+        <h2 class="gantt-header-title">Plan Rápido de Ejecución: Capacitación</h2>
+        
+        <div class="gantt-chart">
+            <!-- Headers (Ahora solo hasta Semana 5) -->
+            <div class="gantt-head">Actividad / Fase</div>
+            
+            <div class="gantt-head">
+                <span>Sem 2</span>
+                <small>05-11 Ene</small>
+            </div>
+            
+            <div class="gantt-head">
+                <span>Sem 3</span>
+                <small>12-18 Ene</small>
+            </div>
+            
+            <div class="gantt-head">
+                <span>Sem 4</span>
+                <small>19-25 Ene</small>
+            </div>
+            
+            <div class="gantt-head">
+                <span>Sem 5</span>
+                <small>26-31 Ene</small>
+            </div>
+            
+            <!-- Eliminada la columna TBD -->
+
+            <!-- Row 1: Elaboración -->
+            <div class="gantt-row-label">Elaboración de Material</div>
+            <div class="gantt-row-cell" style="grid-column: 2 / span 2; border-right: 1px solid var(--border-color);">
+                <div class="gantt-bar bar-blue" style="width: calc(100% - 10px);">Diseño y Contenido</div>
+            </div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+
+            <!-- Row 2: Autorización Servicios -->
+            <div class="gantt-row-label">
+                <div>
+                    Autorización<br>
+                    <small style="font-weight: normal; color: #7f8c8d;">(Subdirección Servicios)</small>
+                </div>
+            </div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell">
+                <div class="gantt-bar bar-orange">Revisión</div>
+            </div>
+            <div class="gantt-row-cell"></div>
+
+            <!-- Row 3: Autorización Comercial -->
+            <div class="gantt-row-label">
+                <div>
+                    Autorización<br>
+                    <small style="font-weight: normal; color: #7f8c8d;">(Subdirección Comercial)</small>
+                </div>
+            </div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell">
+                <div class="gantt-bar bar-orange">Validación</div>
+            </div>
+            <div class="gantt-row-cell"></div>
+
+            <!-- Row 4: Programación -->
+            <div class="gantt-row-label">Programación de Espacios</div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell">
+                <div class="gantt-bar bar-green">Logística</div>
+            </div>
+
+            <!-- Row 5: Instalación (Movido a Sem 5) -->
+            <div class="gantt-row-label">Instalación / Ejecución</div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell"></div>
+            <div class="gantt-row-cell">
+                <!-- Barra movida aquí y renombrada a 'Inicio' o manteniendo 'TBD' según prefieras, le puse 'Inicio' para que tenga sentido con la fecha -->
+                <div class="gantt-bar bar-grey">Inicio</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
